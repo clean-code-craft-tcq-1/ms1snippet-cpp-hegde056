@@ -1,28 +1,42 @@
 #include "sensor-validate.h"
 
-bool _give_me_a_good_name(double value, double nextValue, double maxDelta) {
-  if(nextValue - value > maxDelta) {
-    return false;
-  }
-  return true;
+bool isValueDiffAccepted(double value, double nextValue, double maxDelta) {
+    if (nextValue - value > maxDelta) {
+        return false;
+    }
+    return true;
+}
+
+bool isValidInput(double* values,int numOfValues)
+{
+    if (values == nullptr || numOfValues <= 1) return false;
+    else return true;
+}
+
+bool validateReadings(double* values, int numOfValues, double maxDelta) {
+        int lastButOneIndex = numOfValues - 1;
+        for (int i = 0; i < lastButOneIndex; i++) {
+            if (!isValueDiffAccepted(values[i], values[i + 1], maxDelta)) {
+                return false;
+            }
+        }
+        return true;
 }
 
 bool validateSOCreadings(double* values, int numOfValues) {
-  int lastButOneIndex = numOfValues - 1;
-  for(int i = 0; i < lastButOneIndex; i++) {
-    if(!_give_me_a_good_name(values[i], values[i + 1], 0.05)) {
-      return false;
+    double maxDeltaSOC = 0.05;
+    if (isValidInput(values,numOfValues))
+    {
+        return validateReadings(values, numOfValues, maxDeltaSOC);
     }
-  }
-  return true;
+    
 }
 
 bool validateCurrentreadings(double* values, int numOfValues) {
-  int lastButOneIndex = numOfValues - 1;
-  for(int i = 0; i < lastButOneIndex; i++) {
-    if(!_give_me_a_good_name(values[i], values[i + 1], 0.1)) {
-      return false;
+    double maxDeltaCurrent = 0.1;
+    if (isValidInput(values, numOfValues))
+    {
+        return validateReadings(values, numOfValues, maxDeltaCurrent);
     }
-  }
-  return true;
+    
 }
