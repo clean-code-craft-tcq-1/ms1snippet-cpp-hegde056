@@ -1,7 +1,7 @@
 
 bool isValueDiffAccepted(double value, double nextValue, double maxDelta);
 
-bool checkValidInput(double* values, int numOfValues);
+bool isValidInput(double* values, int numOfValues);
 
 bool validateSOCreadings(double* values, int numOfValues);
 
