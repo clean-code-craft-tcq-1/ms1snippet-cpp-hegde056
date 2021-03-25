@@ -24,7 +24,6 @@ bool validateReadings(double* values, int numOfValues, double maxDelta) {
         }
         return true;
     }
-    else return false;
 
 }
 
